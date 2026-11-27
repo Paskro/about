@@ -52,20 +52,20 @@ const stories: { id: string; title: string; text: string; list?: string[]; lesso
 
     <article class="card" data-expandable>
       <h4>{userStory.title}</h4>
-      <p class="label">{userStory.storyTitle}</p>
-      <p class="quote">{userStory.story}</p>
+      <p class="label">{userStory.shortTitle}</p>
+      <p class="quote">{userStory.short}</p>
       <div class="details" id="user-story">
+        <p class="label">{userStory.gherkinTitle}</p>
+        <ul class="gherkin">
+          {userStory.gherkin.map((line) => <li>{line}</li>)}
+        </ul>
+        <p class="label">{userStory.storyTitle}</p>
+        <p class="quote">{userStory.story}</p>
         <p class="label">{userStory.whyTitle}</p>
         <p>{userStory.why}</p>
         <p class="label">{userStory.taskTitle}</p>
         <ul>
           {userStory.task.map((line) => <li>{line}</li>)}
-        </ul>
-        <p class="label">{userStory.shortTitle}</p>
-        <p class="quote">{userStory.short}</p>
-        <p class="label">{userStory.gherkinTitle}</p>
-        <ul class="gherkin">
-          {userStory.gherkin.map((line) => <li>{line}</li>)}
         </ul>
       </div>
       <button type="button" class="toggle js-only" aria-expanded="true" aria-controls="user-story" data-show={caseStudy.readStory} data-hide={caseStudy.hideStory}>
