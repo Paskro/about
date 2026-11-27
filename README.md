@@ -1,6 +1,6 @@
 # paskro.com/about
 
-Personal one-page site of Pavel Skrobov. Static [Astro](https://astro.build) build, English at `/about/`, Russian at `/about/ru/`. No server, no external requests, no analytics, no cookies.
+Personal one-page site of Pavel Skrobov. Static [Astro](https://astro.build) build, English at `/about/`, Russian at `/about/ru/`. No server and no cookies. The only external request is the GoatCounter visit counter (`src/components/Counter.astro`); statistics are at https://paskro.goatcounter.com. The same counter is on paskro.com and dopaminebudget.paskro.com.
 
 ## Structure
 

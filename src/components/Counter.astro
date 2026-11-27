@@ -1,0 +1,9 @@
+---
+// Visit counter (GoatCounter, no cookies). The only third-party request of the site.
+// The host is part of the path, because one counter serves paskro.com and dopaminebudget.paskro.com.
+---
+
+<script is:inline>
+  window.goatcounter = { path: (path) => location.host + path };
+</script>
+<script is:inline data-goatcounter="https://paskro.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>

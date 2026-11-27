@@ -13,12 +13,14 @@ const check = (name, ok, extra = '') => {
 for (const path of ['', 'ru/']) {
   console.log(`\n== /about/${path}`);
   const context = await browser.newContext({ viewport: { width: 390, height: 844 } });
+  await context.route('https://gc.zgo.at/**', (route) => route.fulfill({ contentType: 'text/javascript', body: '' }));
   const page = await context.newPage();
   const external = [];
   const errors = [];
   const bad = [];
   page.on('request', (r) => {
-    if (!r.url().startsWith(new URL(url).origin) && !r.url().startsWith('data:')) external.push(r.url());
+    const allowed = [new URL(url).origin, 'data:', 'https://gc.zgo.at/count.js'];
+    if (!allowed.some((prefix) => r.url().startsWith(prefix))) external.push(r.url());
   });
   page.on('console', (m) => m.type() === 'error' && errors.push(m.text()));
   page.on('pageerror', (e) => errors.push(e.message));
@@ -79,7 +81,7 @@ for (const path of ['', 'ru/']) {
     return [...document.fonts].filter((f) => f.status === 'loaded').map((f) => f.family.replace(/"/g, ''));
   });
   check('self-hosted fonts loaded', fonts.includes('Inter') && fonts.includes('Caveat'), [...new Set(fonts)].join(', '));
-  check('no external requests', external.length === 0, external.join(' '));
+  check('no external requests except the visit counter', external.length === 0, external.join(' '));
   check('no cookies or storage', (await context.cookies()).length === 0 && (await page.evaluate(() => localStorage.length + sessionStorage.length)) === 0);
   check('no console errors or broken files', errors.length === 0 && bad.length === 0, [...errors, ...bad].join(' '));
   await context.close();
@@ -93,6 +95,7 @@ for (const path of ['', 'ru/']) {
   await noJs.close();
 
   const calm = await browser.newPage({ reducedMotion: 'reduce' });
+  await calm.route('https://gc.zgo.at/**', (route) => route.abort());
   await calm.goto(url + path, { waitUntil: 'networkidle' });
   const calmState = await calm.evaluate(() => ({
     transition: getComputedStyle(document.querySelector('.period')).transitionDuration,

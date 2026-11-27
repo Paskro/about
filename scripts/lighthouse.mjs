@@ -27,6 +27,7 @@ for (const [lang, path] of [['EN', ''], ['RU', 'ru/']]) {
       `--output-path=${file}`,
       `--only-categories=${categories.join(',')}`,
       `--port=${port}`,
+      '--blocked-url-patterns=*gc.zgo.at*',
     ];
     if (preset === 'desktop') args.push('--preset=desktop');
     await run(process.execPath, args);

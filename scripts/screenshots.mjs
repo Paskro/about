@@ -11,6 +11,7 @@ const devices = {
 for (const [device, options] of Object.entries(devices)) {
   for (const [lang, path] of [['en', ''], ['ru', 'ru/']]) {
     const page = await browser.newPage({ ...options, reducedMotion: 'reduce' });
+    await page.route('https://gc.zgo.at/**', (route) => route.abort());
     await page.goto(url + path, { waitUntil: 'networkidle' });
     await page.evaluate(() => document.fonts.ready);
     // Lazy pictures would stay blank in a full-page shot.
