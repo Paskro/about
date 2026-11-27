@@ -2,6 +2,8 @@
 import { preview } from 'astro';
 
 export async function serve(port = 4329) {
+  // LIVE_URL=https://paskro.com/about/ runs the same scripts against the published site.
+  if (process.env.LIVE_URL) return { url: process.env.LIVE_URL, stop: async () => {} };
   const server = await preview({ logLevel: 'silent', server: { port, host: '127.0.0.1' } });
   return { url: `http://127.0.0.1:${server.port}/about/`, stop: () => server.stop() };
 }

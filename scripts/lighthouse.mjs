@@ -47,7 +47,7 @@ await stop();
 const table = [
   '# Lighthouse',
   '',
-  `Local run of the production build, ${new Date().toISOString().slice(0, 10)}. Repeat after deploy.`,
+  `${process.env.LIVE_URL ? 'Run against ' + url : 'Local run of the production build'}, ${new Date().toISOString().slice(0, 10)}.`,
   '',
   '| Page | Preset | Performance | Accessibility | Best practices | SEO |',
   '|---|---|---|---|---|---|',
