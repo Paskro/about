@@ -1,0 +1,58 @@
+---
+import type en from '../content/en.json';
+
+interface Props {
+  content: typeof en;
+}
+
+const { timeline } = Astro.props.content;
+const tags = Object.entries(timeline.tags);
+const tagLabels: Record<string, string> = timeline.tags;
+---
+
+<section class="wrap section" aria-labelledby="timeline-title">
+  <h2 id="timeline-title">{timeline.title}</h2>
+
+  <div class="filters js-only" role="group" aria-label={timeline.filtersLabel}>
+    {tags.map(([id, label]) => <button type="button" class="chip" data-filter={id} aria-pressed="false">{label}</button>)}
+    <button type="button" class="chip chip-reset" data-reset>{timeline.reset}</button>
+  </div>
+  <p class="visually-hidden" aria-live="polite" data-status data-template={timeline.matchStatus}></p>
+
+  <div class="timeline" data-timeline>
+    <div class="timeline-line" aria-hidden="true"><div class="timeline-fill" data-fill></div></div>
+    <ol>
+      {
+        timeline.items.map((item) => (
+          <li class="period" data-tags={item.tags.join(' ')}>
+            <article class="card" data-expandable={item.details.length ? '' : undefined}>
+              <p class="years">{item.years}</p>
+              <h3>{item.title}</h3>
+              <p>{item.summary}</p>
+              {item.details.length > 0 && (
+                <>
+                  <div class="details" id={`period-${item.id}`}>
+                    <ul>
+                      {item.details.map((line) => (
+                        <li>{line}</li>
+                      ))}
+                    </ul>
+                  </div>
+                  <button type="button" class="toggle js-only" aria-expanded="true" aria-controls={`period-${item.id}`} data-show={timeline.showDetails} data-hide={timeline.hideDetails}>
+                    <span data-label>{timeline.hideDetails}</span>
+                    <span class="visually-hidden">: {item.title}</span>
+                  </button>
+                </>
+              )}
+              <ul class="tags">
+                {item.tags.map((tag) => (
+                  <li data-tag={tag}>{tagLabels[tag]}</li>
+                ))}
+              </ul>
+            </article>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>

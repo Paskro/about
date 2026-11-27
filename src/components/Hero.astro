@@ -1,0 +1,43 @@
+---
+import Sketch from './Sketch.astro';
+import type en from '../content/en.json';
+import { CONTACT_EMAIL, CV_FILES, TELEGRAM_HANDLE, TELEGRAM_URL } from '../config';
+import { asset, hasPublicFile } from '../lib/site';
+
+interface Props {
+  content: typeof en;
+  lang: 'en' | 'ru';
+}
+
+const { content, lang } = Astro.props;
+const { hero } = content;
+const hasPhoto = hasPublicFile('img/pavel.jpg');
+---
+
+<section class="hero wrap" aria-labelledby="hero-name">
+  <div class="hero-photo">
+    {
+      hasPhoto ? (
+        <img src={asset('img/pavel.jpg')} alt={hero.photoAlt} width="240" height="240" fetchpriority="high" />
+      ) : (
+        <svg class="avatar" viewBox="0 0 240 240" aria-hidden="true">
+          <circle cx="120" cy="120" r="118" fill="#E3F2F0" />
+          <text x="120" y="152" text-anchor="middle">PS</text>
+          <path d="M62 184c34-14 82-16 120-4" />
+        </svg>
+      )
+    }
+  </div>
+  <div class="hero-text">
+    <h1 id="hero-name">{hero.name}</h1>
+    <p class="role">{hero.role}</p>
+    <p class="subtitle">{hero.subtitle}</p>
+    <p class="location">{hero.location}</p>
+    <ul class="actions">
+      <li><a class="btn btn-primary" href={asset(CV_FILES[lang])} download>{hero.downloadCv} <span class="btn-note">PDF</span></a></li>
+      <li><a class="btn" href={TELEGRAM_URL} rel="me noopener">{hero.telegram} <span class="btn-note">{TELEGRAM_HANDLE}</span></a></li>
+      <li><a class="btn" href={`mailto:${CONTACT_EMAIL}`}>{hero.email} <span class="btn-note">{CONTACT_EMAIL}</span></a></li>
+    </ul>
+  </div>
+  <Sketch file="img/sketch-hero.png" class="hero-sketch" />
+</section>

@@ -1,0 +1,97 @@
+---
+import '@fontsource/inter/latin-400.css';
+import '@fontsource/inter/latin-600.css';
+import '@fontsource/inter/cyrillic-400.css';
+import '@fontsource/inter/cyrillic-600.css';
+import '@fontsource/caveat/latin-700.css';
+import '@fontsource/caveat/cyrillic-700.css';
+import '../styles/global.css';
+
+import interLatin from '@fontsource/inter/files/inter-latin-400-normal.woff2?url';
+import interLatinBold from '@fontsource/inter/files/inter-latin-600-normal.woff2?url';
+import interCyrillicBold from '@fontsource/inter/files/inter-cyrillic-600-normal.woff2?url';
+import interCyrillic from '@fontsource/inter/files/inter-cyrillic-400-normal.woff2?url';
+import caveatLatin from '@fontsource/caveat/files/caveat-latin-700-normal.woff2?url';
+import caveatCyrillic from '@fontsource/caveat/files/caveat-cyrillic-700-normal.woff2?url';
+
+import Hero from './Hero.astro';
+import Help from './Help.astro';
+import Timeline from './Timeline.astro';
+import CaseStudy from './CaseStudy.astro';
+import Skills from './Skills.astro';
+import Footer from './Footer.astro';
+import type en from '../content/en.json';
+import { SITE_URL } from '../config';
+import { asset } from '../lib/site';
+
+interface Props {
+  content: typeof en;
+  lang: 'en' | 'ru';
+}
+
+const { content, lang } = Astro.props;
+const { meta, ui } = content;
+// Preload the fonts of the first screen so the text does not jump when they arrive.
+const fonts = lang === 'ru' ? [interCyrillic, interCyrillicBold, caveatCyrillic, interLatin, interLatinBold] : [interLatin, interLatinBold, caveatLatin];
+const urls = { en: `${SITE_URL}/about/`, ru: `${SITE_URL}/about/ru/` };
+const ogImage = `${SITE_URL}${asset(`img/og-${lang}.png`)}`;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{meta.title}</title>
+    {fonts.map((href) => <link rel="preload" as="font" type="font/woff2" href={href} crossorigin />)}
+    <meta name="description" content={meta.description} />
+    <link rel="canonical" href={urls[lang]} />
+    <link rel="alternate" hreflang="en" href={urls.en} />
+    <link rel="alternate" hreflang="ru" href={urls.ru} />
+    <link rel="alternate" hreflang="x-default" href={urls.en} />
+    <link rel="sitemap" type="application/xml" href={asset('sitemap.xml')} />
+    <link rel="icon" type="image/svg+xml" href={asset('favicon.svg')} />
+    <link rel="apple-touch-icon" href={asset('apple-touch-icon.png')} />
+    <meta name="theme-color" content="#F5F3EE" />
+
+    <meta property="og:type" content="profile" />
+    <meta property="og:title" content={meta.title} />
+    <meta property="og:description" content={meta.description} />
+    <meta property="og:url" content={urls[lang]} />
+    <meta property="og:locale" content={lang === 'ru' ? 'ru_RU' : 'en_US'} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={meta.ogImageAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={meta.title} />
+    <meta name="twitter:description" content={meta.description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    {/* Marks JS support before first paint, so collapsed blocks do not flash. Without JS everything stays open. */}
+    <script is:inline>
+      document.documentElement.classList.add('js');
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{ui.skipToContent}</a>
+    <header class="site-header wrap">
+      <a class="brand" href="https://paskro.com/" aria-label={ui.homeLink}>paskro.com</a>
+      <nav class="lang-switch" aria-label={ui.languageSwitch}>
+        <a href={asset('')} hreflang="en" lang="en" aria-current={lang === 'en' ? 'page' : undefined}>EN</a>
+        <a href={asset('ru/')} hreflang="ru" lang="ru" aria-current={lang === 'ru' ? 'page' : undefined}>RU</a>
+      </nav>
+    </header>
+    <main id="main" tabindex="-1">
+      <Hero content={content} lang={lang} />
+      <Help content={content} />
+      <Timeline content={content} />
+      <CaseStudy content={content} lang={lang} />
+      <Skills content={content} />
+    </main>
+    <Footer content={content} />
+    <script>
+      import '../scripts/page.ts';
+    </script>
+  </body>
+</html>

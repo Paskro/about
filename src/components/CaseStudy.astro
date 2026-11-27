@@ -1,0 +1,104 @@
+---
+import type en from '../content/en.json';
+import { POSTS } from '../config';
+import Figure from './Figure.astro';
+
+interface Props {
+  content: typeof en;
+  lang: 'en' | 'ru';
+}
+
+const { content, lang } = Astro.props;
+const { caseStudy } = content;
+const { userStory, agentRules } = caseStudy;
+const { context, board } = caseStudy.artifacts;
+const stories: { id: string; title: string; text: string; list?: string[]; lesson?: string }[] = caseStudy.stories;
+---
+
+<section class="wrap section" aria-labelledby="case-title">
+  <h2 id="case-title">{caseStudy.title}</h2>
+  <p class="lead">{caseStudy.subtitle}</p>
+
+  <ul class="stories">
+    {
+      stories.map((story) => (
+        <li>
+          <article class="card story" data-expandable>
+            <h3>{story.title}</h3>
+            <div class="details" id={`story-${story.id}`}>
+              <p>{story.text}</p>
+              {story.list && (
+                <ol>
+                  {story.list.map((line) => (
+                    <li>{line}</li>
+                  ))}
+                </ol>
+              )}
+              {story.lesson && <p class="lesson">{story.lesson}</p>}
+            </div>
+            <button type="button" class="toggle js-only" aria-expanded="true" aria-controls={`story-${story.id}`} data-show={caseStudy.readStory} data-hide={caseStudy.hideStory}>
+              <span data-label>{caseStudy.hideStory}</span>
+              <span class="visually-hidden">: {story.title}</span>
+            </button>
+          </article>
+        </li>
+      ))
+    }
+  </ul>
+
+  <h3 class="sub">{caseStudy.artifactsTitle}</h3>
+  <div class="artifacts">
+    <Figure {...context} />
+
+    <article class="card" data-expandable>
+      <h4>{userStory.title}</h4>
+      <p class="label">{userStory.storyTitle}</p>
+      <p class="quote">{userStory.story}</p>
+      <div class="details" id="user-story">
+        <p class="label">{userStory.whyTitle}</p>
+        <p>{userStory.why}</p>
+        <p class="label">{userStory.taskTitle}</p>
+        <ul>
+          {userStory.task.map((line) => <li>{line}</li>)}
+        </ul>
+        <p class="label">{userStory.shortTitle}</p>
+        <p class="quote">{userStory.short}</p>
+        <p class="label">{userStory.gherkinTitle}</p>
+        <ul class="gherkin">
+          {userStory.gherkin.map((line) => <li>{line}</li>)}
+        </ul>
+      </div>
+      <button type="button" class="toggle js-only" aria-expanded="true" aria-controls="user-story" data-show={caseStudy.readStory} data-hide={caseStudy.hideStory}>
+        <span data-label>{caseStudy.hideStory}</span>
+        <span class="visually-hidden">: {userStory.title}</span>
+      </button>
+    </article>
+
+    <Figure {...board} />
+
+    <article class="card">
+      <h4>{agentRules.title}</h4>
+      <p>{agentRules.intro}</p>
+      <ol class="rules">
+        {agentRules.items.map((line) => <li>{line}</li>)}
+      </ol>
+    </article>
+  </div>
+
+  {
+    POSTS.length > 0 && (
+      <>
+        <h3 class="sub">{caseStudy.postsTitle}</h3>
+        <ul class="posts">
+          {POSTS.map((post) => (
+            <li>
+              <a href={post.url} rel="noopener">
+                {post[lang]}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </>
+    )
+  }
+</section>

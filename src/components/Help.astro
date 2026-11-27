@@ -1,0 +1,25 @@
+---
+import Sketch from './Sketch.astro';
+import type en from '../content/en.json';
+
+interface Props {
+  content: typeof en;
+}
+
+const { help } = Astro.props.content;
+---
+
+<section class="wrap section" aria-labelledby="help-title">
+  <h2 id="help-title">{help.title}</h2>
+  <ul class="help-grid">
+    {
+      help.items.map((item, index) => (
+        <li class="card">
+          <Sketch file={`img/sketch-help-${index + 1}.png`} />
+          <h3>{item.title}</h3>
+          <p>{item.text}</p>
+        </li>
+      ))
+    }
+  </ul>
+</section>

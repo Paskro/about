@@ -1,0 +1,20 @@
+---
+import type en from '../content/en.json';
+
+interface Props {
+  content: typeof en;
+}
+
+const { skills } = Astro.props.content;
+---
+
+<section class="wrap section" aria-labelledby="skills-title">
+  <h2 id="skills-title">{skills.title}</h2>
+  <ul class="chips" aria-label={skills.skillsLabel}>
+    {skills.items.map((skill) => <li>{skill}</li>)}
+  </ul>
+  <h3 class="sub">{skills.languagesTitle}</h3>
+  <ul class="chips">
+    {skills.languages.map((language) => <li>{language}</li>)}
+  </ul>
+</section>

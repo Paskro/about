@@ -1,0 +1,289 @@
+{
+  "lang": "en",
+  "meta": {
+    "title": "Pavel Skrobov — System & Business Analyst",
+    "description": "I turn messy ideas into clear requirements and make sure teams build the right thing.",
+    "ogImageAlt": "Pavel Skrobov, System & Business Analyst · Product Owner"
+  },
+  "ui": {
+    "skipToContent": "Skip to content",
+    "languageSwitch": "Language",
+    "homeLink": "paskro.com, main page"
+  },
+  "hero": {
+    "name": "Pavel Skrobov",
+    "role": "System & Business Analyst · Product Owner",
+    "subtitle": "I turn messy ideas into clear requirements and make sure teams build the right thing.",
+    "location": "Novi Sad, Serbia · remote or hybrid · work permit in place",
+    "downloadCv": "Download CV",
+    "telegram": "Telegram",
+    "email": "Email",
+    "photoAlt": "Photo of Pavel Skrobov"
+  },
+  "help": {
+    "title": "How I can help",
+    "items": [
+      {
+        "title": "Requirements and documentation",
+        "text": "Gathering requirements, turning them into clear specs, user stories and acceptance criteria."
+      },
+      {
+        "title": "Processes and models",
+        "text": "BPMN, UML, data model, process improvement."
+      },
+      {
+        "title": "Delivery with AI agents",
+        "text": "Backlog in Jira, docs in Confluence, AI coding agents that implement while I write requirements and validate the result."
+      }
+    ]
+  },
+  "timeline": {
+    "title": "Timeline",
+    "filtersLabel": "Highlight periods by topic",
+    "reset": "Reset",
+    "showDetails": "Details",
+    "hideDetails": "Hide",
+    "matchStatus": "Highlighted periods: {count} of {total}",
+    "tags": {
+      "requirements": "Requirements",
+      "process": "Process",
+      "product": "Product",
+      "testing": "Testing",
+      "operations": "Operations",
+      "learning": "Learning"
+    },
+    "items": [
+      {
+        "id": "dopamine-budget",
+        "years": "May 2026 — now",
+        "title": "Dopamine Budget · Product Owner / System Analyst",
+        "summary": "Own the product end to end.",
+        "details": [
+          "Own the product end to end: vision, scope, business rules, functional requirements, data model and architecture docs in Confluence.",
+          "Run the backlog in Jira: findings from a code review become prioritized tickets with a decision on each. Keep a decision log of what is built, postponed or rejected, and why.",
+          "Designed business processes in BPMN 2.0, user scenarios (main and alternative), an ER model, C4 and sequence diagrams.",
+          "Coordinate AI coding agents: I write requirements and acceptance criteria, agents implement, I accept and test the result.",
+          "For the first beta I switched off accounts and cloud sync because of privacy and GDPR risks: the app works offline."
+        ],
+        "tags": [
+          "product",
+          "requirements",
+          "process",
+          "testing"
+        ]
+      },
+      {
+        "id": "yandex-practicum",
+        "years": "Jan — May 2026",
+        "title": "System Analysis · Yandex Practicum",
+        "summary": "Diploma of professional retraining.",
+        "details": [
+          "Requirements analysis, UML/BPMN, system design, testing and documentation.",
+          "Graduation project: BPMN, ER models, user stories with acceptance criteria (Gherkin), test methodology, a Figma prototype."
+        ],
+        "tags": [
+          "learning",
+          "requirements",
+          "process",
+          "testing"
+        ]
+      },
+      {
+        "id": "parent",
+        "years": "2019 — 2025",
+        "title": "Full-time parent of two",
+        "summary": "Career break.",
+        "details": [
+          "Learning in parallel: QA course (2021). Then System Analysis (2026) and my own product."
+        ],
+        "tags": [
+          "learning"
+        ]
+      },
+      {
+        "id": "qa-course",
+        "years": "2021",
+        "title": "QA Manual · GeekBrains",
+        "summary": "Manual testing course.",
+        "details": [],
+        "tags": [
+          "testing",
+          "learning"
+        ]
+      },
+      {
+        "id": "coffee-shop",
+        "years": "2018 — 2019",
+        "title": "Coffee shop manager",
+        "summary": "Managed a team of 8–10 people and the daily operations of a coffee shop.",
+        "details": [],
+        "tags": [
+          "operations"
+        ]
+      },
+      {
+        "id": "family-house",
+        "years": "2016 — 2025",
+        "title": "Family house project",
+        "summary": "Designed and built a family house, from first sketches to interior finishing.",
+        "details": [],
+        "tags": [
+          "operations"
+        ]
+      },
+      {
+        "id": "sportmaster",
+        "years": "2012 — 2015",
+        "title": "Sportmaster · Senior Economist / Business Analyst",
+        "summary": "Moved the ordering of one product category from Excel into 1C.",
+        "details": [
+          "Moved the ordering of one product category from Excel into 1C, working out requirements and the integration process with product managers and developers.",
+          "Moved order accounting for two more product groups from Excel into 1C.",
+          "Gathered and structured requirements together with 5+ departments, turned business needs into tasks and specs for IT.",
+          "Took part in UAT, investigated bugs with developers.",
+          "Improved procurement and ordering processes.",
+          "Led meetings with 10+ stakeholders.",
+          "Wrote process docs and flow diagrams (Visio), trained users at rollout."
+        ],
+        "tags": [
+          "requirements",
+          "process",
+          "testing",
+          "operations"
+        ]
+      },
+      {
+        "id": "msu",
+        "years": "2008 — 2013",
+        "title": "Lomonosov Moscow State University",
+        "summary": "Bachelor, Economics.",
+        "details": [],
+        "tags": [
+          "learning"
+        ]
+      }
+    ]
+  },
+  "caseStudy": {
+    "title": "Case study: Dopamine Budget",
+    "subtitle": "An Android habit-tracking app I build as Product Owner, with AI agents as the dev team. Beta coming soon.",
+    "readStory": "Read the story",
+    "hideStory": "Hide",
+    "stories": [
+      {
+        "id": "missing-requirement",
+        "title": "A bug that was a missing requirement",
+        "text": "The sign-in button on the first onboarding slide was made for existing users. A new user who tapped it got an account and skipped the privacy slides. The code did what I asked: the path was never described.",
+        "lesson": "Lesson: for every flow, ask how else someone can get here."
+      },
+      {
+        "id": "server-or-phone",
+        "title": "What lives on the server, what stays on the phone",
+        "text": "The app is offline-first. A four-question filter decides:",
+        "list": [
+          "Will I change it after launch?",
+          "Does it exist only in sync mode?",
+          "What happens if the server is down?",
+          "Is it personal data?"
+        ]
+      },
+      {
+        "id": "cutting-for-beta",
+        "title": "Cutting finished work for the beta",
+        "text": "For a real beta, I switched off accounts, cloud sync and other server features behind a build flag.",
+        "lesson": "“Done” and “ready to ship” are different things."
+      }
+    ],
+    "artifactsTitle": "Artifacts",
+    "artifacts": {
+      "context": {
+        "file": "img/beta_context.webp",
+        "width": 1600,
+        "height": 934,
+        "caption": "What ships in the beta: context diagram.",
+        "alt": "Diagram. In the beta: the user logs habits in the Dopamine Budget Android app, which works offline and keeps all data on the phone; a home screen widget saves taps; reminders are scheduled on the phone. Switched off by a build flag: cloud backend, Google sign-in, push service."
+      },
+      "board": {
+        "file": "img/jira_board.webp",
+        "width": 1520,
+        "height": 874,
+        "caption": "The real board, Sprint 3. It is in Russian: that is the language I work in.",
+        "alt": "Jira board of the Dopamine project, Sprint 3, with the columns Idea, To Do, In Progress, Testing and Done."
+      }
+    },
+    "postsTitle": "LinkedIn posts",
+    "userStory": {
+      "title": "User story: from story to task",
+      "storyTitle": "Story (SCRUM-287, onboarding)",
+      "story": "As a new user, I want to see the privacy slides before any account is created, so that I decide what to share with full information.",
+      "whyTitle": "Why it exists",
+      "why": "The sign-in button on the first slide was made for existing users. A new user who tapped it got an account and skipped the privacy slides. The code did what I asked; the path was never described.",
+      "taskTitle": "Turned into a task",
+      "task": [
+        "Slide order: A1 → A2 → A3 → B1 → B2 → B3 → B3m.",
+        "If tapping “Sign in” on A1 creates a new account, onboarding continues from A2, so no privacy slide is skipped.",
+        "Creating an account on B3 leads to B3m.",
+        "Step 1 is a recon: read the current flow before changing code.",
+        "Acceptance criteria and tests are part of the task."
+      ],
+      "shortTitle": "Short story (US-22)",
+      "short": "As a user who cannot afford any of my habits today, I want to stop control for the day, so that I can honestly record a lapse.",
+      "gherkinTitle": "Given / When / Then",
+      "gherkin": [
+        "Given my balance is not enough for any habit",
+        "When I press the “Stop control” button",
+        "Then the day is marked as broken",
+        "And the widget is locked",
+        "And the habits screen is hidden",
+        "And the screen shows a supportive message"
+      ]
+    },
+    "agentRules": {
+      "title": "How I brief AI agents",
+      "intro": "Rules I write into the sprint goal for the agent queue:",
+      "items": [
+        "Read the project instructions file first.",
+        "If a question for the product owner is open, stop and ask. Do not guess.",
+        "Tests are mandatory, with a baseline: they were green before, they must be green after.",
+        "One commit per task, with the task key in the message.",
+        "Never touch production data or migrations."
+      ]
+    }
+  },
+  "skills": {
+    "title": "Skills & languages",
+    "skillsLabel": "Skills",
+    "items": [
+      "Business analysis",
+      "Requirements gathering and analysis",
+      "Functional requirements",
+      "User stories",
+      "Acceptance criteria (Gherkin)",
+      "AS IS / TO BE mapping",
+      "GAP analysis",
+      "Process modeling and improvement",
+      "BPMN",
+      "UML",
+      "Data modeling (ER)",
+      "SQL",
+      "Agile",
+      "Jira",
+      "Confluence",
+      "Figma",
+      "Draw.io",
+      "1C",
+      "UAT",
+      "Stakeholder management"
+    ],
+    "languagesTitle": "Languages",
+    "languages": [
+      "Russian (native)",
+      "English (B1)"
+    ]
+  },
+  "footer": {
+    "title": "Get in touch",
+    "linkedin": "LinkedIn",
+    "telegram": "Telegram"
+  }
+}

@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.astro/
+*.log
+.env*
+.DS_Store
+Thumbs.db
+
+# Personal documents never go into this repository.
+private/
+*.docx
+*.doc
+*.pdf
+!public/cv/Pavel_Skrobov_CV_EN.pdf
+!public/cv/Pavel_Skrobov_CV_RU.pdf
