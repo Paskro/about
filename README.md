@@ -71,6 +71,8 @@ Put the file under the exact name and rebuild. Until then a placeholder is shown
 
 Check every picture for personal data before adding it (names, emails, avatars on the Jira board, photo metadata): the repository and the site are public.
 
+House photos live in `public/img/house/`. Their order, captions, alt texts and pixel sizes are in `src/content/house/captions.json` (English) and `captions.ru.json`: keep the two lists in the same order. The first entry is the large picture, the rest form the strip.
+
 LinkedIn posts: `{ url, en, ru }` objects in `POSTS` in `src/config.ts`. The user story and the agent rules are `caseStudy.userStory` and `caseStudy.agentRules` in the JSON files.
 
 ## CV PDFs

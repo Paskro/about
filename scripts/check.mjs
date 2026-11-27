@@ -70,6 +70,32 @@ for (const path of ['', 'ru/']) {
     check(`no horizontal scroll at ${width}px`, overflow <= 0, `${overflow}`);
   }
 
+  await page.setViewportSize({ width: 390, height: 844 });
+  const card = page.locator('.period:has(.house)');
+  await card.locator('.toggle').click();
+  const photos = card.locator('[data-zoom]');
+  check('house card shows 1 + 7 photos', (await photos.count()) === 8 && (await card.locator('.house-strip li').count()) === 7);
+  const strip = await card.locator('.house-strip').evaluate((el) => ({ scrolls: el.scrollWidth > el.clientWidth, snap: getComputedStyle(el).scrollSnapType }));
+  const pageOverflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
+  check('strip scrolls with snap, the page does not', strip.scrolls && strip.snap === 'x mandatory' && pageOverflow <= 0, JSON.stringify(strip));
+  await photos.nth(2).focus();
+  await page.keyboard.press('Enter');
+  const dialog = card.locator('dialog');
+  const large = dialog.locator('img');
+  await large.evaluate((img) => img.decode());
+  check('Enter opens the large photo with its caption', (await dialog.isVisible()) && (await large.getAttribute('src')) === (await photos.nth(2).getAttribute('href')) && (await dialog.locator('figcaption').innerText()).length > 10);
+  const box = await dialog.boundingBox();
+  check('dialog fits the phone screen', box.x >= 0 && box.y >= 0 && box.x + box.width <= 390 && box.y + box.height <= 844, JSON.stringify(box));
+  await page.keyboard.press('Escape');
+  const focused = () => photos.nth(2).evaluate((el) => el === document.activeElement);
+  check('Esc closes it and focus returns', !(await dialog.isVisible()) && (await focused()));
+  await photos.nth(2).click();
+  await dialog.locator('button').click();
+  check('Close button closes it, the card stays open', !(await dialog.isVisible()) && (await focused()) && (await card.locator('.details').isVisible()));
+  await photos.first().click();
+  await page.mouse.click(3, 3);
+  check('click on the backdrop closes it', !(await dialog.isVisible()));
+
   const pdf = await page.locator('.btn-primary').getAttribute('href');
   const res = await page.request.get(new URL(pdf, url).href);
   check('CV link serves a PDF', res.ok() && (await res.body()).subarray(0, 4).toString() === '%PDF', pdf);

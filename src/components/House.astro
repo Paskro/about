@@ -1,0 +1,42 @@
+---
+// Photos of the family house inside its timeline card: the first one large, the rest in a strip.
+// Order and texts come from the caption files. Without JS this is a plain list of linked pictures.
+import en from '../content/house/captions.json';
+import ru from '../content/house/captions.ru.json';
+import { asset } from '../lib/site';
+
+interface Props {
+  lang: 'en' | 'ru';
+  closeLabel: string;
+}
+
+const { lang, closeLabel } = Astro.props;
+const [hero, ...rest] = lang === 'ru' ? ru : en;
+const groups = [
+  { className: 'house-hero', photos: [hero] },
+  { className: 'house-strip', photos: rest },
+];
+---
+
+<div class="house">
+  {
+    groups.map(({ className, photos }) => (
+      <ul class={className}>
+        {photos.map((photo) => (
+          <li>
+            <figure>
+              <a href={asset(`img/house/${photo.file}`)} data-zoom>
+                <img src={asset(`img/house/${photo.file}`)} alt={photo.alt} width={photo.width} height={photo.height} loading="lazy" />
+              </a>
+              <figcaption>{photo.caption}</figcaption>
+            </figure>
+          </li>
+        ))}
+      </ul>
+    ))
+  }
+  <dialog class="lightbox">
+    <form method="dialog"><button class="chip">{closeLabel}</button></form>
+    <figure></figure>
+  </dialog>
+</div>

@@ -41,6 +41,7 @@
     "title": "Timeline",
     "filtersLabel": "Highlight periods by topic",
     "reset": "Reset",
+    "closePhoto": "Close",
     "showDetails": "Details",
     "hideDetails": "Hide",
     "matchStatus": "Highlighted periods: {count} of {total}",
@@ -125,7 +126,7 @@
         "id": "family-house",
         "years": "2016 — 2025",
         "title": "Family house project",
-        "summary": "Designed and built a family house, from first sketches to interior finishing.",
+        "summary": "Designed and built a family house myself, from first sketches to interior finishing.",
         "details": [],
         "tags": [
           "operations"

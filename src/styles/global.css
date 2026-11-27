@@ -161,7 +161,8 @@ html:not(.js) .js-only { display: none; }
 
 /* Timeline */
 .timeline { position: relative; }
-.timeline > ol { list-style: none; display: grid; gap: 1rem; }
+/* minmax(0, …) keeps the photo strip from widening the column. */
+.timeline > ol { list-style: none; display: grid; grid-template-columns: minmax(0, 1fr); gap: 1rem; }
 .timeline-line { position: absolute; left: 0.5rem; top: 0; bottom: 0; width: 4px; border-radius: 4px; background: var(--line); }
 .timeline-fill { height: 100%; border-radius: 4px; background: linear-gradient(var(--teal), var(--coral)); transform-origin: top; }
 .period { position: relative; padding-left: 2rem; transition: opacity 0.25s ease; }
@@ -203,6 +204,41 @@ html:not(.js) [data-expandable] { cursor: auto; }
 .tags { list-style: none; display: flex; flex-wrap: wrap; gap: 0.375rem; margin-top: 0.75rem; }
 .tags li { padding: 0 0.625rem; border-radius: 999px; background: var(--bg); color: var(--muted); font-size: 0.8125rem; }
 .tags li.is-selected { background: var(--teal); color: var(--ink); font-weight: 600; }
+
+/* House photos. Without JS: a plain list. With JS the small ones become a swipeable strip. */
+.house ul { list-style: none; display: grid; gap: 0.75rem; padding-left: 0; }
+.house ul + ul { margin-top: 0.75rem; }
+.house li + li { margin-top: 0; }
+.house a { display: block; cursor: zoom-in; }
+.house img { display: block; width: 100%; height: auto; border-radius: 12px; }
+.house figcaption { color: var(--muted); font-size: 0.875rem; line-height: 1.45; }
+html.js .house-strip {
+  grid-auto-flow: column;
+  grid-auto-columns: min(75%, 15rem);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  /* Room for the focus ring, which a scrolling box would cut off. */
+  padding: 6px 6px 0.75rem;
+  scroll-padding-inline: 6px;
+}
+html.js .house-strip li { scroll-snap-align: start; }
+html.js .house-strip img { aspect-ratio: 4 / 3; object-fit: cover; }
+
+.lightbox {
+  width: min(100% - 1.5rem, 60rem);
+  max-height: calc(100% - 1.5rem);
+  padding: 0.75rem;
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--card);
+  color: var(--ink);
+  cursor: auto;
+}
+.lightbox::backdrop { background: rgb(29 28 26 / 0.85); }
+.lightbox form { display: flex; justify-content: flex-end; margin-bottom: 0.5rem; }
+.lightbox img { display: block; width: auto; height: auto; max-width: 100%; max-height: 70vh; margin-inline: auto; cursor: auto; }
+html:has(.lightbox[open]) { overflow: hidden; }
 
 /* Case study: coral marks the problem, teal marks the lesson. */
 .stories { list-style: none; display: grid; gap: 1rem; }

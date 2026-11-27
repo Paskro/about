@@ -1,11 +1,14 @@
 ---
 import type en from '../content/en.json';
+import House from './House.astro';
 
 interface Props {
   content: typeof en;
+  lang: 'en' | 'ru';
 }
 
 const { timeline } = Astro.props.content;
+const { lang } = Astro.props;
 const tags = Object.entries(timeline.tags);
 const tagLabels: Record<string, string> = timeline.tags;
 ---
@@ -25,18 +28,21 @@ const tagLabels: Record<string, string> = timeline.tags;
       {
         timeline.items.map((item) => (
           <li class="period" data-tags={item.tags.join(' ')}>
-            <article class="card" data-expandable={item.details.length ? '' : undefined}>
+            <article class="card" data-expandable={item.details.length || item.id === 'family-house' ? '' : undefined}>
               <p class="years">{item.years}</p>
               <h3>{item.title}</h3>
               <p>{item.summary}</p>
-              {item.details.length > 0 && (
+              {(item.details.length > 0 || item.id === 'family-house') && (
                 <>
                   <div class="details" id={`period-${item.id}`}>
-                    <ul>
-                      {item.details.map((line) => (
-                        <li>{line}</li>
-                      ))}
-                    </ul>
+                    {item.details.length > 0 && (
+                      <ul>
+                        {item.details.map((line) => (
+                          <li>{line}</li>
+                        ))}
+                      </ul>
+                    )}
+                    {item.id === 'family-house' && <House lang={lang} closeLabel={timeline.closePhoto} />}
                   </div>
                   <button type="button" class="toggle js-only" aria-expanded="true" aria-controls={`period-${item.id}`} data-show={timeline.showDetails} data-hide={timeline.hideDetails}>
                     <span data-label>{timeline.hideDetails}</span>

@@ -22,6 +22,29 @@ for (const card of document.querySelectorAll<HTMLElement>('[data-expandable]')) 
   });
 }
 
+/* Photos open large in a dialog. Esc closes it (built in) and focus returns to the photo. */
+for (const gallery of document.querySelectorAll<HTMLElement>('.house')) {
+  const dialog = gallery.querySelector('dialog')!;
+  const slot = dialog.querySelector('figure')!;
+  let opener: HTMLAnchorElement | null = null;
+  gallery.addEventListener('click', (event) => {
+    const link = (event.target as HTMLElement).closest<HTMLAnchorElement>('[data-zoom]');
+    // A modified click keeps its usual meaning, such as opening the file in a new tab.
+    if (!link || event.ctrlKey || event.metaKey || event.shiftKey) return;
+    event.preventDefault();
+    opener = link;
+    const figure = link.closest('figure')!;
+    const image = figure.querySelector('img')!.cloneNode() as HTMLImageElement;
+    image.loading = 'eager';
+    slot.replaceChildren(image, figure.querySelector('figcaption')!.cloneNode(true));
+    dialog.setAttribute('aria-label', image.alt);
+    dialog.showModal();
+  });
+  // A click on the backdrop lands on the dialog element itself.
+  dialog.addEventListener('click', (event) => event.target === dialog && dialog.close());
+  dialog.addEventListener('close', () => opener?.focus());
+}
+
 /* Tag filters: matching periods are highlighted, the rest are dimmed. */
 const chips = [...document.querySelectorAll<HTMLButtonElement>('[data-filter]')];
 const periods = [...document.querySelectorAll<HTMLElement>('.period')];
